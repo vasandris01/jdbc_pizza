@@ -76,6 +76,13 @@ public class OrderItemDao implements Dao<OrderItem> {
 
     @Override
     public void delete(OrderItem orderItem) {
-
+        try (
+                PreparedStatement s = engine.getConnection().prepareStatement("DELETE FROM tetel WHERE razon = ?;");
+        ) {
+            s.setLong(1, orderItem.razon());
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
