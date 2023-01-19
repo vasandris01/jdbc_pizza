@@ -40,6 +40,13 @@ public class Controller implements AutoCloseable {
         return this.orderDao.getAll();
     }
 
+    public void addOrdder(Order order){
+        this.orderDao.save(order);
+    }
+    public void addOrderItem(OrderItem orderItem){
+        this.orderItemDao.save(orderItem);
+    }
+
     //első feladat pizza felvétlele
     public void addPizza(Pizza pizza){
         this.pizzaDao.save(pizza);

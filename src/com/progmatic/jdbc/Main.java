@@ -1,11 +1,9 @@
 package com.progmatic.jdbc;
 
-import com.progmatic.jdbc.model.Client;
-import com.progmatic.jdbc.model.Courier;
-import com.progmatic.jdbc.model.Order;
-import com.progmatic.jdbc.model.Pizza;
-import com.progmatic.jdbc.model.Controller;
+import com.progmatic.jdbc.model.*;
 
+import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,8 +22,8 @@ public class Main {
 
     public void start() {
         try (
-            Scanner sc = new Scanner(System.in);
-            Controller controll = new Controller()
+                Scanner sc = new Scanner(System.in);
+                Controller controll = new Controller()
         ) {
             System.out.println("*".repeat(30));
             System.out.println("*" + "Pizza Prog" + "*");
@@ -35,10 +33,52 @@ public class Main {
             this.printMenu();
             while (!(s = sc.nextLine()).equalsIgnoreCase("k")) {
                 switch (s.toLowerCase()) {
-                    case "u" ->
-                        System.out.println("uj rendeles");
-                    case "s" ->
-                        System.out.println("kereses");
+                    case "u" -> {
+                        System.out.println("Ki vagy koma? (id)");
+                        long vazon = Long.parseLong(sc.nextLine());
+                        List<Client> allC = controll.getAllClient();
+                        Client client = null;
+                        for (Client c : allC) {
+                            if (c.cid() == vazon) {
+                                client = c;
+                                break;
+                            }
+                        }
+                        if (client == null) {
+                            //új vásárló
+                        }
+
+                        List<Order> orders = controll.getAllOrder();
+                        long razon = orders.get(0).oid();
+                        for (int i = 1; i < orders.size(); i++) {
+                            if (razon < orders.get(i).oid()) {
+                                razon = orders.get(i).oid();
+                            }
+                        }
+                        razon++;
+
+                        List<Pizza> allP = controll.getAllPizza();
+                        List<OrderItem> orderItems = new LinkedList<>();
+                        for (Pizza p : allP) {
+                            System.out.println("Hány db " + p.name() + " kérsz?");
+                            short db = Short.parseShort(sc.nextLine());
+                            if (db > 0) {
+                                orderItems.add(new OrderItem(razon, p, db));
+                            }
+                        }
+                        List<Courier> couriers = controll.getAllCourier();
+                        Courier courier = couriers.get((int) (Math.random() * couriers.size()));
+
+
+                        Order order = new Order(razon, client, courier, orderItems, LocalDateTime.now());
+
+                        controll.addOrdder(order);
+                        for (OrderItem o : orderItems) {
+                            controll.addOrderItem(o);
+                        }
+                    }
+
+                    case "s" -> System.out.println("kereses");
 //                        this.startSearch(engine);
                     case "v" -> {
                         List<Client> allC = controll.getAllClient();
@@ -68,14 +108,14 @@ public class Main {
                         }
                         System.out.println("\n");
                     }
-                        case "p"-> {
-                            System.out.println("Add meg az id-t");
-                        long pizzaid=Long.parseLong(sc.nextLine());
-                            System.out.println("Add meg a pizza nevét");
-                        String pizzanev= sc.nextLine();
-                            System.out.println("Add meg az árát");
-                        int pizzar=Integer.parseInt(sc.nextLine());
-                    Pizza pizza=new Pizza(pizzaid,pizzanev,pizzar);
+                    case "p" -> {
+                        System.out.println("Add meg az id-t");
+                        long pizzaid = Long.parseLong(sc.nextLine());
+                        System.out.println("Add meg a pizza nevét");
+                        String pizzanev = sc.nextLine();
+                        System.out.println("Add meg az árát");
+                        int pizzar = Integer.parseInt(sc.nextLine());
+                        Pizza pizza = new Pizza(pizzaid, pizzanev, pizzar);
                     }
 
                     default -> System.out.println("Ilyen menuelem nincs, kerem valasszon ujra.\n");
@@ -86,6 +126,7 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
+
     public static void main(String[] args) {
         Main m = new Main();
         m.start();

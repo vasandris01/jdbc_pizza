@@ -3,9 +3,7 @@ package dao;
 import com.progmatic.jdbc.DBEngine;
 import com.progmatic.jdbc.model.Order;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -59,7 +57,17 @@ public class OrderDao implements Dao<Order> {
 
     @Override
     public void save(Order order) {
-
+        try (
+                PreparedStatement s = engine.getConnection().prepareStatement("INSERT INTO rendeles (razon, vazon, fazon,idopont) VALUES (?,?,?,?);");
+        ) {
+            s.setLong(1, order.oid());
+            s.setLong(2, order.client().cid());
+            s.setLong(3,order.courier().cid());
+            s.setTimestamp(4, Timestamp.valueOf(order.orderedAt()));
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
