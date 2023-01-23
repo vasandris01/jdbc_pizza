@@ -53,22 +53,7 @@ public class PizzaDao implements Dao<Pizza> {
         return all;
     }
 
-    public List<Pizza> getAll(List<Long> ids) {
-        List<Pizza> all = new LinkedList<>();
 
-        try (
-            PreparedStatement s = engine.getConnection().prepareStatement("SELECT * FROM pizza WHERE pazon in ?;");
-        ) {
-            s.setString(1, "("+ String.join(",", ids.stream().map(String::valueOf).toList()) +")");
-            ResultSet rs = s.executeQuery();
-            while (rs.next()) {
-                all.add(resultToPizza(rs));
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return all;
-    }
 
     @Override
     public void save(Pizza pizza) {
