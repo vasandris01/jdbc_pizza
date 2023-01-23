@@ -20,34 +20,38 @@ public class Main {
         System.out.println("(K)ilepes");
     }
 
-    private void printSaveMenu(){
+    private void printSaveMenu() {
         System.out.println("Új pizza felvétele(1)");
         System.out.println("Új futár felvétele(2)");
         System.out.println("Új vásárló felvétele(3)");
         System.out.println("Új rendelés felvétele(4)");
         System.out.println("Vissza a főmenübe(bármi más)");
     }
-    public void save_anything(Controller controller){
+
+    public void save_anything(Controller controller) {
         printSaveMenu();
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
-        switch (s){
-            case "1" ->{
+        switch (s) {
+            case "1" -> {
                 System.out.println("add meg az id t");
                 long id = Long.parseLong(sc.nextLine());
                 System.out.println("add meg a nevet");
                 String name = sc.nextLine();
                 System.out.println("add meg az árát");
                 int ar = Integer.parseInt(sc.nextLine());
-                controller.addPizza(new Pizza(id,name, ar));
+                controller.addPizza(new Pizza(id, name, ar));
             }
-            case "2" ->{}
-            case "3" ->{}
-            case "4" ->{
+            case "2" -> {
+            }
+            case "3" -> {
+            }
+            case "4" -> {
                 rendeles(controller, sc);
             }
         }
     }
+
     public void start() {
         try (
                 Scanner sc = new Scanner(System.in);
@@ -62,7 +66,7 @@ public class Main {
             while (!(s = sc.nextLine()).equalsIgnoreCase("k")) {
                 switch (s.toLowerCase()) {
                     case "u" -> {
-
+                        save_anything(controll);
                     }
 
                     case "s" -> System.out.println("kereses");
@@ -119,7 +123,7 @@ public class Main {
         m.start();
     }
 
-    public void rendeles(Controller controll, Scanner sc){
+    public void rendeles(Controller controll, Scanner sc) {
         System.out.println("Ki vagy koma? (id)");
         long vazon = Long.parseLong(sc.nextLine());
         List<Client> allC = controll.getAllClient();
