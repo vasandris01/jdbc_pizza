@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
 
     private void printMenu() {
-        System.out.println("(U)j rendeles");
+        System.out.println("(U)j dolog felvétele");
         System.out.println("Kere(s)es");
         System.out.println("Ve(v)ok listaja");
         System.out.println("Fu(t)arok listaja");
@@ -20,6 +20,25 @@ public class Main {
         System.out.println("(K)ilepes");
     }
 
+    private void printSaveMenu(){
+        System.out.println("Új pizza felvétele(1)");
+        System.out.println("Új futár felvétele(2)");
+        System.out.println("Új vásárló felvétele(3)");
+        System.out.println("Új rendelés felvétele(4)");
+        System.out.println("Vissza a főmenübe(bármi más)");
+    }
+    public void save_anything(){
+        printSaveMenu();
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        sc.close();
+        switch (s){
+            case "1" ->{}
+            case "2" ->{}
+            case "3" ->{}
+            case "4" ->{}
+        }
+    }
     public void start() {
         try (
                 Scanner sc = new Scanner(System.in);
