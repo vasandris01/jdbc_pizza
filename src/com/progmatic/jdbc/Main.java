@@ -33,7 +33,13 @@ public class Main {
         String s = sc.nextLine();
         switch (s){
             case "1" ->{
-
+                System.out.println("add meg az id t");
+                long id = Long.parseLong(sc.nextLine());
+                System.out.println("add meg a nevet");
+                String name = sc.nextLine();
+                System.out.println("add meg az árát");
+                int ar = Integer.parseInt(sc.nextLine());
+                controller.addPizza(new Pizza(id,name, ar));
             }
             case "2" ->{}
             case "3" ->{}
