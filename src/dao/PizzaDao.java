@@ -88,7 +88,7 @@ public class PizzaDao implements Dao<Pizza> {
     @Override
     public void update(Pizza pizza, String[] params) {
         try (
-                PreparedStatement s = engine.getConnection().prepareStatement("UPDATE pizza set par where par=850");
+                PreparedStatement s = engine.getConnection().prepareStatement("UPDATE pizza set par=1200 where par=850");
         ) {
             s.setInt(3, pizza.price());
             s.executeUpdate();

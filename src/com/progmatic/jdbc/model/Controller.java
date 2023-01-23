@@ -46,11 +46,9 @@ public class Controller implements AutoCloseable {
     public void addOrderItem(OrderItem orderItem){
         this.orderItemDao.save(orderItem);
     }
-
-    //első feladat pizza felvétlele
-    public void addPizza(Pizza pizza){
-        this.pizzaDao.save(pizza);
-    }
+    public void addPizza(Pizza pizza){this.pizzaDao.save(pizza);}
+    public void addClient(Client client){this.clientDao.save(client);}
+    public void addCourier(Courier courier){this.courierDao.save(courier);}
 
     @Override
     public void close() throws Exception {

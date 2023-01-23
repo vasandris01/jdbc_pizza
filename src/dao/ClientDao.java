@@ -77,7 +77,14 @@ public class ClientDao implements Dao<Client> {
 
     @Override
     public void update(Client client, String[] params) {
-
+        try (
+                PreparedStatement s = engine.getConnection().prepareStatement("UPDATE vevo set vnev='Merges' where vnev like 'Morgó';");
+        ) {
+            s.setString(2, client.name());
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
