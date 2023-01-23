@@ -73,11 +73,28 @@ public class PizzaDao implements Dao<Pizza> {
     @Override
     public void save(Pizza pizza) {
 //
-
+        try (
+                PreparedStatement s = engine.getConnection().prepareStatement("insert into pizza values (?,?,?);");
+        ) {
+            s.setLong(1, pizza.pid());
+            s.setString(2, pizza.name());
+            s.setInt(3,pizza.price());
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void update(Pizza pizza, String[] params) {
+        try (
+                PreparedStatement s = engine.getConnection().prepareStatement("UPDATE pizza set par where par=850");
+        ) {
+            s.setInt(3, pizza.price());
+            s.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
